@@ -51,3 +51,29 @@ function playRound(playerSelection, computerSelection) {
     }
 }
 
+function game() {
+    playerWins = 0;
+    computerWins = 0;
+
+    while(playerWins < 5 && computerWins < 5) {
+        let input = prompt("Rock, Paper, or Scissors?");
+
+        let roundResult = playRound(input, computerPlay());
+
+        if (roundResult === "win") {
+            ++playerWins;
+        } else if (roundResult === "lose"){
+            ++computerWins;
+        }
+        console.log(`Current Score = Player: ${playerWins} Computer: ${computerWins}`);
+    }
+
+    if (playerWins >= 5) {
+        console.log("You won the game!");
+    }
+    if (computerWins >= 5) {
+        console.log("You loss the game!");
+    }
+ }
+
+ game();
