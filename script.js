@@ -1,18 +1,20 @@
-function game() {
+function playGame() {
     let playerScore = 0;
     let computerScore = 0;
 
-    while(playerScore < 5 && computerScore < 5) {
+    const SCORE_TO_WIN = 5;
+
+    while(playerScore < SCORE_TO_WIN && computerScore < SCORE_TO_WIN) {
         let input = prompt("Rock, Paper, or Scissors?");
 
         let roundResult = playRound(input, computerPlay());
 
         if (roundResult === "win") {
-            ++playerScore;
+            playerScore++;
         } else if (roundResult === "lose"){
-            ++computerScore;
+            computerScore++;
         }
-        console.log(`Current Score = Player: ${playerScore} Computer: ${computerScore}`);
+        console.log(`Score = Player: ${playerScore} Computer: ${computerScore}`);
     }
     declareWinner(playerScore, computerScore);
  }
@@ -73,4 +75,4 @@ function computerPlay() {
     }
  }
 
- game();
+ playGame();
