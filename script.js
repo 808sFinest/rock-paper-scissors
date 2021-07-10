@@ -4,6 +4,7 @@ function playGame() {
 
     const SCORE_TO_WIN = 5;
 
+    /*
     while(playerScore < SCORE_TO_WIN && computerScore < SCORE_TO_WIN) {
         let input = prompt("Rock, Paper, or Scissors?");
 
@@ -16,6 +17,7 @@ function playGame() {
         }
         console.log(`Score = Player: ${playerScore} Computer: ${computerScore}`);
     }
+    */
     declareWinner(playerScore, computerScore);
  }
 
@@ -23,32 +25,27 @@ function playGame() {
     playerSelection = playerSelection.toLowerCase();
     computerSelection = computerSelection.toLowerCase();
 
+    const result = document.querySelector("#result");
+
     if (playerSelection === computerSelection) {
-        console.log("It's a tie!");
-        return "tie";
+        result.textContent = "It's a tie!";
     } else if (playerSelection === "rock") {
         if (computerSelection === "paper") {
-            console.log("You lose! Paper beats Rock");
-            return "lose";
+            result.textContent = "You lose! Paper beats Rock";
         } else {
-            console.log("You win! Rock beats Scissors");
-            return "win";
+            result.textContent = "You win! Rock beats Scissors";
         }
     } else if (playerSelection === "paper") {
         if (computerSelection === "scissors") {
-            console.log("You lose! Scissors beats paper");
-            return "lose";
+            result.textContent = "You lose! Scissors beats paper";
         } else {
-            console.log("You win! Paper beats Rock");
-            return "win";
+            result.textContent = "You win! Paper beats Rock";
         }
     } else if (playerSelection === "scissors") {
         if (computerSelection === "rock") {
-            console.log("You lose! Rock beats scissors");
-            return "lose";
+            result.textContent = "You lose! Rock beats scissors";
         } else {
-            console.log("You win! Scissors beats paper");
-            return "win";
+            result.textContent = "You win! Scissors beats paper";
         }
     }
 }
@@ -75,4 +72,15 @@ function computerPlay() {
     }
  }
 
- playGame();
+ 
+
+ const buttons = document.querySelectorAll("button");
+
+ buttons.forEach((button) => {
+
+     button.addEventListener('click', () => {
+         playRound(button.id, computerPlay())
+     });
+ });
+
+ //playGame();
