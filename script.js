@@ -1,97 +1,98 @@
 let playerScore = 0;
 let computerScore = 0;
 
-updateScore();
+updateScoreText();
 
-const buttons = document.querySelectorAll("button");
+function updateScoreText() {
+  const playerScoreText = document.querySelector(".player-score");
+  const computerScoreText = document.querySelector(".computer-score");
 
-buttons.forEach((button) => {
-    button.addEventListener('click', () => {
-        playRound(button.id, computerPlay())
+  playerScoreText.textContent = playerScore;
+  computerScoreText.textContent = computerScore;
+}
+
+addListenerToButtons();
+
+function addListenerToButtons() {
+  const buttons = document.querySelectorAll("button");
+
+  buttons.forEach(button => {
+    button.addEventListener("click", () => {
+      playRound(button.className, computerPlay());
     });
-});
+  });
+}
 
 function playRound(playerSelection, computerSelection) {
-    playerSelection = playerSelection.toLowerCase();
-    computerSelection = computerSelection.toLowerCase();
+  playerSelection = playerSelection.toLowerCase();
+  computerSelection = computerSelection.toLowerCase();
 
-    const result = document.querySelector("#result");
+  const result = document.querySelector(".result");
 
-    if (playerSelection === computerSelection) {
-        result.textContent = "It's a tie!";
-        return;
-    } else if (playerSelection === "rock") {
-        if (computerSelection === "paper") {
-            result.textContent = "You lose! Paper beats Rock";
-            computerScore++;
-        } else {
-            result.textContent = "You win! Rock beats Scissors";
-            playerScore++;
-        }
-    } else if (playerSelection === "paper") {
-        if (computerSelection === "scissors") {
-            result.textContent = "You lose! Scissors beats paper";
-            computerScore++;
-        } else {
-            result.textContent = "You win! Paper beats Rock";
-            playerScore++;
-        }
-    } else if (playerSelection === "scissors") {
-        if (computerSelection === "rock") {
-            result.textContent = "You lose! Rock beats scissors";
-            computerScore++;
-        } else {
-            result.textContent = "You win! Scissors beats paper";
-            playerScore++;
-        }
+  if (playerSelection === computerSelection) {
+    result.textContent = "It's a tie!";
+    return;
+  } else if (playerSelection === "rock") {
+    if (computerSelection === "paper") {
+      result.textContent = "You lose! Paper beats Rock";
+      computerScore++;
+    } else {
+      result.textContent = "You win! Rock beats Scissors";
+      playerScore++;
     }
-    updateScore();
-
-    declareWinner();
+  } else if (playerSelection === "paper") {
+    if (computerSelection === "scissors") {
+      result.textContent = "You lose! Scissors beats paper";
+      computerScore++;
+    } else {
+      result.textContent = "You win! Paper beats Rock";
+      playerScore++;
+    }
+  } else if (playerSelection === "scissors") {
+    if (computerSelection === "rock") {
+      result.textContent = "You lose! Rock beats scissors";
+      computerScore++;
+    } else {
+      result.textContent = "You win! Scissors beats paper";
+      playerScore++;
+    }
+  }
+  updateScoreText();
+  declareWinner();
 }
 
-function updateScore() {
-    const playerScoreText = document.querySelector("#player-score");
-    const computerScoreText = document.querySelector("#computer-score");
+function declareWinner() {
+  const SCORE_TO_WIN = 5;
 
-    playerScoreText.textContent = playerScore;
-    computerScoreText.textContent = computerScore;
- }
+  if (playerScore < SCORE_TO_WIN && computerScore < SCORE_TO_WIN) {
+    return;
+  }
 
- function declareWinner() {
-    const SCORE_TO_WIN = 5;
+  const winner = document.querySelector(".winner");
 
-    if (playerScore < SCORE_TO_WIN && computerScore < SCORE_TO_WIN) {
-        return;
-    }
+  winner.textContent =
+    playerScore >= SCORE_TO_WIN ? "You won the game!" : "You  loss the game!";
 
-    const winner = document.querySelector("#winner");
+  resetGame();
+}
 
-    winner.textContent = (playerScore >= SCORE_TO_WIN) ? "You won the game!" :
-            "You  loss the game!";
+function resetGame() {
+  playerScore = 0;
+  computerScore = 0;
 
-    resetGame();
- }
-
- function resetGame() {
-    playerScore = 0;
-    computerScore = 0;
-
-    updateScore();
- }
-
+  updateScoreText();
+}
 
 function computerPlay() {
-    const MAX_POSSIBLITIES = 3;
-    let randomNum = Math.floor(Math.random() * MAX_POSSIBLITIES);
+  const MAX_POSSIBILITIES = 3;
+  let randomNum = Math.floor(Math.random() * MAX_POSSIBILITIES);
 
-    switch(randomNum) {
-        case 0:
-            return "Rock";
-        case 1:
-            return "Paper";
-        case 2:
-            return "Scissors";
-    }
+  switch (randomNum) {
+    case 0:
+      return "Rock";
+    case 1:
+      return "Paper";
+    case 2:
+      return "Scissors";
+  }
 }
- 
